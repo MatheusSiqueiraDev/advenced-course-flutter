@@ -21,7 +21,7 @@ class TodoViewmodel extends ChangeNotifier {
   List<Todo> get todos => _todos;
 
   Future<Result> _load() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2));
 
     final List<Todo> todos = [];
 
@@ -29,7 +29,7 @@ class TodoViewmodel extends ChangeNotifier {
 
     notifyListeners();
 
-    return Result.ok([todos]);
+    return Result.ok(todos..add(Todo(id: 1, name: "Primeiro todo")));
   }
 
   Future<Result<Todo>> _addTodo(String name) async {
