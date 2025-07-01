@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
+import 'package:mvvm/ui/todo/widgets/add_todo_widget.dart';
 import 'package:mvvm/ui/todo/widgets/todos_list.dart';
 
 class TodoScreen extends StatelessWidget {
@@ -34,8 +35,21 @@ class TodoScreen extends StatelessWidget {
           builder: (context, build) {
             return TodosList(todos: todoViewmodel.todos);
           }
-        )  
-      )
+        )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context, 
+            builder: (context) {
+              return AddTodoWidget(
+                todoViewmodel: todoViewmodel,
+              );
+            },
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
