@@ -23,6 +23,7 @@ class _TodoScreen extends State<TodoScreen> {
   void _removeCallBack() {
     if(widget.todoViewmodel.removeTodo.running) {
       showDialog(
+        barrierDismissible: false,
         context: context, 
         builder: (context) {
           return AlertDialog(
