@@ -1,6 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mvvm/core/result/result.dart';
-import 'package:mvvm/domain/models/todo.dart';
 import 'package:mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 
 void main() {

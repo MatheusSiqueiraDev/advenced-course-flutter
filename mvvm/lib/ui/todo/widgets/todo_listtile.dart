@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:mvvm/core/typedef/todos.dart';
 import 'package:mvvm/domain/models/todo.dart';
 
-class TodoListtile extends StatelessWidget {
+class TodoListtile extends StatefulWidget {
+  final OnDeleteTodo onDeleteTodo;
   final Todo todo;
 
-  const TodoListtile({super.key, required this.todo});
+  const TodoListtile({super.key, required this.todo, required this.onDeleteTodo});
 
+  @override
+  State<TodoListtile> createState() => _TodoListtile();
+}
+
+class _TodoListtile extends State<TodoListtile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Text(todo.id.toString()),
-      title: Text(todo.name)
+      leading: Text(widget.todo.id.toString()),
+      title: Text(widget.todo.name),
+      trailing: IconButton(
+        onPressed: () {
+          widget.onDeleteTodo(widget.todo);
+        }, 
+        icon: Icon(
+          Icons.delete,
+          color: Colors.red,
+        )
+      ),
     );
   }
 }

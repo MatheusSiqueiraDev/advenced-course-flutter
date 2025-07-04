@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm/core/result/result.dart';
 
-typedef CommandAction0<Output extends Object> = Future<Result<Output>> Function(); 
+typedef CommandAction0<Output> = Future<Result<Output>> Function(); 
 
-typedef CommandAction1<Output extends Object, Input extends Object> = Future<Result<Output>> Function(Input);
+typedef CommandAction1<Output, Input extends Object> = Future<Result<Output>> Function(Input);
 
-abstract class Command<Output extends Object> extends ChangeNotifier {
+abstract class Command<Output> extends ChangeNotifier {
   bool _running = false;
 
   bool get running => _running;
@@ -35,7 +35,7 @@ abstract class Command<Output extends Object> extends ChangeNotifier {
   }
 }
 
-class Command0<Output extends Object> extends Command<Output> {
+class Command0<Output> extends Command<Output> {
   final CommandAction0<Output> action;
 
   Command0(this.action);
@@ -45,7 +45,7 @@ class Command0<Output extends Object> extends Command<Output> {
   }
 }
 
-class Command1<Output extends Object, Input extends Object> extends Command<Output> {
+class Command1<Output, Input extends Object> extends Command<Output> {
   final CommandAction1<Output, Input> action;
 
   Command1(this.action);
