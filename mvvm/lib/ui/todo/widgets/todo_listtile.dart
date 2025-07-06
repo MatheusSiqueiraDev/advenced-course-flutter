@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/core/typedef/todos.dart';
+import 'package:mvvm/utils/typedef/todos.dart';
 import 'package:mvvm/domain/models/todo.dart';
 
 class TodoListtile extends StatefulWidget {
   final OnDeleteTodo onDeleteTodo;
   final Todo todo;
 
-  const TodoListtile({super.key, required this.todo, required this.onDeleteTodo});
+  const TodoListtile({
+    super.key, 
+    required this.todo, 
+    required this.onDeleteTodo
+  });
 
   @override
   State<TodoListtile> createState() => _TodoListtile();

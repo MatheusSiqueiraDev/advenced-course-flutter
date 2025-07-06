@@ -7,7 +7,10 @@ import 'package:mvvm/ui/todo/widgets/todos_list.dart';
 class TodoScreen extends StatefulWidget {
   final TodoViewmodel todoViewmodel;
 
-  const TodoScreen({super.key,  required this.todoViewmodel});
+  const TodoScreen({
+    super.key,  
+    required this.todoViewmodel
+  });
 
   @override
   State<TodoScreen> createState() => _TodoScreen();

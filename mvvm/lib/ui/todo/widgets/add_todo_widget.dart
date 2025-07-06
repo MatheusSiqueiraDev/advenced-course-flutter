@@ -4,7 +4,10 @@ import 'package:mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 
 class AddTodoWidget extends StatefulWidget {
   final TodoViewmodel todoViewmodel;
-  const AddTodoWidget({super.key, required this.todoViewmodel});
+  const AddTodoWidget({
+    super.key, 
+    required this.todoViewmodel
+  });
 
   @override
   State<AddTodoWidget> createState() => _AddTodoWidget();
