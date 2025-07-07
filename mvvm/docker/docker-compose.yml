@@ -1,0 +1,13 @@
+services:
+  node:
+    build:
+      context: ./dockerFile  # ou "." se o docker-compose estiver na raiz
+      dockerfile: NODE
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ../server:/home/node/app
+    expose:
+      - "3000"
+    ports: # use if it is necessary to expose the container to the host machine
+      - "3000:3000"
