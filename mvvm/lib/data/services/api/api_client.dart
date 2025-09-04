@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:mvvm/data/services/api/models/todo/todo_api_model.dart';
 import 'package:mvvm/domain/models/todo.dart';
 import 'package:mvvm/utils/result/result.dart';
 
@@ -41,15 +42,13 @@ class ApiClient {
     }
   }
 
-  Future<Result<Todo>> postTodo(Todo todo) async {
+  Future<Result<Todo>> postTodo(CreateTodoApiModel todo) async {
     final client = _clientFactory();
 
     try {
       final request = await client.post(_host, _port, "/todos");
 
-      request.write(jsonEncode({
-        'name': todo.name
-      }));
+      request.write(jsonEncode(todo.toJson()));
 
       final response = await request.close();
 
@@ -61,6 +60,33 @@ class ApiClient {
         final createTodo = Todo.fromJson(json);
 
         return Result.ok(createTodo);
+      }
+        
+      return Result.error(const HttpException("Valor invalidado"));
+    } on Exception catch (error) {
+      return Result.error(error);
+    } finally {
+      client.close();
+    }
+  }
+  Future<Result<Todo>> updateTodo(UpdateTodoApiModel todo) async {
+    final client = _clientFactory();
+
+    try {
+      final request = await client.put(_host, _port, "/todos/${todo.id}");
+
+      request.write(jsonEncode(todo.toJson()));
+
+      final response = await request.close();
+
+      if(response.statusCode == 200) {
+        final stringData = await response.transform(utf8.decoder).join();
+
+        final json = jsonDecode(stringData) as Map<String, dynamic>;
+
+        final updateTodo = Todo.fromJson(json);
+
+        return Result.ok(updateTodo);
       }
         
       return Result.error(const HttpException("Valor invalidado"));
