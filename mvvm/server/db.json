@@ -1,79 +1,13 @@
 {
   "todos": [
     {
-      "id": "2aa2",
-      "name": "Funcionou mesmo"
-    },
-    {
-      "id": "910e",
-      "name": "Meu todo"
-    },
-    {
-      "id": "874e",
-      "name": "vasco"
-    },
-    {
-      "id": "a02d",
-      "name": "Vai lá"
-    },
-    {
-      "id": "200d",
-      "name": "Funcionou mesmo"
-    },
-    {
       "id": "f6d6",
       "name": "Uhull"
     },
     {
-      "id": "f7db",
-      "name": "Uhull"
-    },
-    {
-      "id": "ae28",
-      "name": "Funcionou mesmo"
-    },
-    {
-      "id": "ec71",
-      "name": "Funcionou mesmo"
-    },
-    {
-      "id": "c451",
-      "name": "Funcionou mesmo"
-    },
-    {
-      "id": "0c0c",
-      "name": "Vasco",
+      "id": "1594",
+      "name": "Criando novo Todo",
       "runtimeType": "create"
-    },
-    {
-      "id": "a254",
-      "name": "Vasco",
-      "runtimeType": "create"
-    },
-    {
-      "id": "f292",
-      "name": "Vasco 2",
-      "runtimeType": "update"
-    },
-    {
-      "id": "3d7a",
-      "name": "Vasco 2",
-      "runtimeType": "update"
-    },
-    {
-      "id": "5175",
-      "name": "Vasco 2",
-      "runtimeType": "update"
-    },
-    {
-      "id": "fdfa",
-      "name": "Vasco 2",
-      "runtimeType": "update"
-    },
-    {
-      "id": "a182",
-      "name": "Vasco 2",
-      "runtimeType": "update"
     }
   ]
 }
