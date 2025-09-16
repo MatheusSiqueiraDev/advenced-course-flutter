@@ -36,4 +36,11 @@ class TodosRepositoryDev implements TodosRespository {
 
     return Result.ok(null);
   }
+
+  @override
+  Future<Result<Todo>> getById(String id) async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    return Result.ok(_todos.where((todo) => todo.id == id).first);
+  }
 }

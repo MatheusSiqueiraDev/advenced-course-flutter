@@ -115,4 +115,30 @@ class ApiClient {
       client.close();
     }
   }
+
+  Future<Result<Todo>> getById(String id) async {
+    final client = _clientFactory();
+
+    try {
+      final request = await client.delete(_host, _port, "/todos/$id");
+
+      final response = await request.close();
+
+      if(response.statusCode == 200) {
+        final stringData = await response.transform(utf8.decoder).join();
+
+        final json = jsonDecode(stringData) as Map<String, dynamic>;
+
+        final createTodo = Todo.fromJson(json);
+
+        return Result.ok(createTodo);
+      }
+
+      return Result.error(const HttpException("Não foi possível buscar o todo"));
+    } on Exception catch (error) {
+      return Result.error(error);
+    } finally {
+      client.close();
+    }
+  }
 }

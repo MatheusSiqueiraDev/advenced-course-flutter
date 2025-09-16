@@ -46,5 +46,21 @@ void main() {
 
       expect(result.asOk.value, isA<Todo>());
     });
+
+    test("Should return Result ok when getById()", () async {
+      final CreateTodoApiModel createTodo = CreateTodoApiModel(name: "Vasco nova era");
+
+      final Result resultTodo = await apiClient.postTodo(createTodo);
+
+      print(resultTodo.asOk.value.toJson());
+
+      final Result result = await apiClient.getById(resultTodo.asOk.value.id);
+
+      print(result.asOk.value.toJson());
+
+      expect(result.asOk.value, isA<Todo>());
+
+      expect(result.asOk.value.id, resultTodo.asOk.value.id);
+    });
   });
 }

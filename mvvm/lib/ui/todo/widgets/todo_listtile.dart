@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mvvm/routes/routes.dart';
 import 'package:mvvm/utils/typedef/todos.dart';
 import 'package:mvvm/domain/models/todo.dart';
 
-class TodoListtile extends StatefulWidget {
+class TodoListtile extends StatelessWidget {
   final OnDeleteTodo onDeleteTodo;
   final Todo todo;
 
@@ -13,23 +15,23 @@ class TodoListtile extends StatefulWidget {
   });
 
   @override
-  State<TodoListtile> createState() => _TodoListtile();
-}
-
-class _TodoListtile extends State<TodoListtile> {
-  @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Text(widget.todo.id.toString()),
-      title: Text(widget.todo.name),
-      trailing: IconButton(
-        onPressed: () {
-          widget.onDeleteTodo(widget.todo);
-        }, 
-        icon: Icon(
-          Icons.delete,
-          color: Colors.red,
-        )
+    return GestureDetector(
+      onTap: () => context.push(Routes.todoDetails(todo.id)),
+      child: Card(
+        child: ListTile(
+          leading: Text(todo.id.toString()),
+          title: Text(todo.name),
+          trailing: IconButton(
+            onPressed: () {
+              onDeleteTodo(todo);
+            }, 
+            icon: Icon(
+              Icons.delete,
+              color: Colors.red,
+            )
+          ),
+        ),
       ),
     );
   }
