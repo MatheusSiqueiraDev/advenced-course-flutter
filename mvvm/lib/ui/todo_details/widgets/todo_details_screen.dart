@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm/domain/models/todo.dart';
+import 'package:mvvm/ui/todo_details/viewmodels/todo_details_viewmodel.dart';
+import 'package:mvvm/ui/todo_details/widgets/todo_name.dart';
 
 class TodoDetailsScreen extends StatefulWidget {
-  final String id;
+  final TodoDetailsViewmodel todoDetailsViewmodel;
 
   const TodoDetailsScreen({
     super.key,
-    required this.id
+    required this.todoDetailsViewmodel
   });
 
   @override
@@ -19,9 +22,33 @@ class _TodoDetailsScreen extends State<TodoDetailsScreen> {
       appBar: AppBar(
         title: Text("Listando detalhe do Todo"),
       ),
-      body: Center(
-        child: Text('Vizualizando todo com id ${widget.id}'),
-      ),
+      body: ListenableBuilder(
+        listenable: widget.todoDetailsViewmodel.load, 
+        builder: (BuildContext context, Widget? child) {
+          if(widget.todoDetailsViewmodel.load.running) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if(widget.todoDetailsViewmodel.load.error) {
+            return const Center(
+              child: Text('Ocorreu um erro ao carregar o Todo'),
+            );
+          }
+
+          return child!;
+        },
+        child: ListenableBuilder(
+          listenable: widget.todoDetailsViewmodel, 
+          builder: (BuildContext context, Widget? child) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TodoName(todo: widget.todoDetailsViewmodel.todo),
+            );
+          },
+        ),
+      )
     );
   }
 }

@@ -120,7 +120,7 @@ class ApiClient {
     final client = _clientFactory();
 
     try {
-      final request = await client.delete(_host, _port, "/todos/$id");
+      final request = await client.get(_host, _port, "/todos/$id");
 
       final response = await request.close();
 

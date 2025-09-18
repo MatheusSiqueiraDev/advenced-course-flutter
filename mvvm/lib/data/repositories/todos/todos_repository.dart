@@ -1,10 +1,14 @@
 import 'package:mvvm/utils/result/result.dart';
 import 'package:mvvm/domain/models/todo.dart';
 
-abstract class TodosRespository {
+abstract class TodosRepository {
   Future<Result<List<Todo>>> get();
 
-  Future<Result<Todo>> add(String name);
+  Future<Result<Todo>> add({
+    required String name, 
+    required String description, 
+    required bool done
+  });
 
   Future<Result<void>> delete(Todo todo);
 

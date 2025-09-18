@@ -2,7 +2,7 @@ import 'package:mvvm/utils/result/result.dart';
 import 'package:mvvm/data/repositories/todos/todos_repository.dart';
 import 'package:mvvm/domain/models/todo.dart';
 
-class TodosRepositoryDev implements TodosRespository {
+class TodosRepositoryDev implements TodosRepository {
   final List<Todo> _todos = [];
 
   @override
@@ -13,14 +13,20 @@ class TodosRepositoryDev implements TodosRespository {
   }
 
   @override
-  Future<Result<Todo>> add(String name) async {
+  Future<Result<Todo>> add({
+    required String name, 
+    required String description, 
+    required bool done
+  }) async {
     await Future.delayed(const Duration(seconds: 2));
 
     final lastTodoIndex = _todos.length;
 
     final Todo createTodo = Todo(
       id: (lastTodoIndex + 1).toString(), 
-      name: name
+      name: name,
+      description: description,
+      done: done,
     );
 
     return Result.ok(createTodo);

@@ -4,13 +4,17 @@ import 'package:mvvm/data/services/api/models/todo/todo_api_model.dart';
 import 'package:mvvm/domain/models/todo.dart';
 import 'package:mvvm/utils/result/result.dart';
 
-class TodosRepositoryRemote implements TodosRespository {
+class TodosRepositoryRemote implements TodosRepository {
   final ApiClient _apiClient;
 
   TodosRepositoryRemote({required ApiClient apiClient}) : _apiClient = apiClient;
 
   @override
-  Future<Result<Todo>> add(String name) async {
+  Future<Result<Todo>> add({
+    required String name, 
+    required String description, 
+    required bool done
+  }) async {
     try {
       final Result<Todo> result = await _apiClient.postTodo(CreateTodoApiModel(name: name));
 
@@ -72,5 +76,4 @@ class TodosRepositoryRemote implements TodosRespository {
       return Result.error(error);
     }
   }
-
 }

@@ -5,7 +5,7 @@ import 'package:mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 
 void main() {
   late TodoViewmodel todoViewmodel;
-  late TodosRespository todosRespository;
+  late TodosRepository todosRespository;
 
   setUp(() {
     todosRespository = TodosRepositoryDev();
@@ -22,7 +22,11 @@ void main() {
     test("Should add Todo", () async {
       expect(todoViewmodel.todos, isEmpty);
 
-      await todoViewmodel.addTodo.execute("Novo todo");
+      await todoViewmodel.addTodo.execute((
+        "Novo todo",
+        "Descricao",
+        false
+      ));
 
       expect(todoViewmodel.todos, isNotEmpty);
 
@@ -34,7 +38,11 @@ void main() {
     test("Should remove Todo", () async {
       expect(todoViewmodel.todos, isEmpty);
 
-      await todoViewmodel.addTodo.execute("Novo todo");
+      await todoViewmodel.addTodo.execute((
+        "Novo todo",
+        "Descricao",
+        false
+      ));
 
       expect(todoViewmodel.todos, isNotEmpty);
 

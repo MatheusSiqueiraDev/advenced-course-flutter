@@ -103,7 +103,11 @@ class _AddTodoWidget extends State<AddTodoWidget> {
               ElevatedButton(
                 onPressed: () {
                   if(_formkey.currentState?.validate() == true) {
-                    widget.todoViewmodel.addTodo.execute(nameController.text);
+                    widget.todoViewmodel.addTodo.execute((
+                      nameController.text,
+                      "", 
+                      false
+                    ));
                   }
                 }, 
                 child: const Text("Enviar")
