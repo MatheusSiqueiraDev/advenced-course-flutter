@@ -15,6 +15,7 @@ class AddTodoWidget extends StatefulWidget {
 class _AddTodoWidget extends State<AddTodoWidget> {
   final _formkey = GlobalKey<FormState>();
   late final TextEditingController nameController = TextEditingController();
+  late final TextEditingController descriptionController = TextEditingController();
   final verticalGap =  SizedBox(
     height: 16,
   );
@@ -67,6 +68,7 @@ class _AddTodoWidget extends State<AddTodoWidget> {
   @override 
   void dispose() {
     nameController.dispose();
+    descriptionController.dispose();
     widget.todoViewmodel.addTodo.removeListener(_onResult);
     super.dispose();
   }
@@ -100,12 +102,29 @@ class _AddTodoWidget extends State<AddTodoWidget> {
                 },
               ),
               verticalGap,
+              TextFormField(
+                minLines: 3,
+                maxLines: null,
+                controller: descriptionController,
+                decoration: InputDecoration(
+                  hintText: "Descrição",
+                  border: OutlineInputBorder()
+                ),
+                validator: (value) {
+                  if(value == null || value.trim() == "") {
+                    return "Por favor preencha o campo de descrição";
+                  }
+
+                  return null;
+                },
+              ),
+              verticalGap,
               ElevatedButton(
                 onPressed: () {
                   if(_formkey.currentState?.validate() == true) {
                     widget.todoViewmodel.addTodo.execute((
                       nameController.text,
-                      "", 
+                      descriptionController.text, 
                       false
                     ));
                   }

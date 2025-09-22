@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm/domain/use_case/todo_update_use_case.dart';
 import 'package:mvvm/utils/command/command.dart';
 import 'package:mvvm/utils/result/result.dart';
 import 'package:mvvm/data/repositories/todos/todos_repository.dart';
 import 'package:mvvm/domain/models/todo.dart';
 
 class TodoViewmodel extends ChangeNotifier {
-  TodoViewmodel(
-    {required todosRespository }
-  ): _todosRespository = todosRespository  {
+  TodoViewmodel({
+    required todosRespository,
+    required todoUpdateUseCase
+  }): _todosRespository = todosRespository, _todoUpdateUseCase = todoUpdateUseCase  {
     load = Command0(_load)..execute();
     addTodo = Command1(_addTodo);
     removeTodo = Command1(_removeTodo);
+    updateTodo = Command1(_todoUpdateUseCase.updateTodo);
+    _todosRespository.addListener(() {
+      _todos = todosRespository.todos;
+      notifyListeners();
+    });
   }
 
   final TodosRepository _todosRespository;
+  
+  final TodoUpdateUseCase _todoUpdateUseCase;
 
   late Command0 load;
 
   late Command1<Todo, (String, String, bool)> addTodo;
 
   late Command1<void, Todo> removeTodo;
+
+  late Command1<Todo, Todo> updateTodo;
 
   List<Todo> _todos = [];
 

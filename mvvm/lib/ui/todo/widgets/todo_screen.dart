@@ -19,6 +19,7 @@ class _TodoScreen extends State<TodoScreen> {
    @override
   void initState() {
     widget.todoViewmodel.removeTodo.addListener(_removeCallBack);
+    widget.todoViewmodel.updateTodo.addListener(_updateCallBack);
     super.initState();
   }
 
@@ -60,9 +61,48 @@ class _TodoScreen extends State<TodoScreen> {
     }
   }
 
+  void _updateCallBack() {
+    if(widget.todoViewmodel.updateTodo.running) {
+      showDialog(
+        barrierDismissible: false,
+        context: context, 
+        builder: (context) {
+          return AlertDialog(
+            content: IntrinsicHeight(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        }
+      );
+    } else {
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      if(widget.todoViewmodel.updateTodo.completed) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: Text("Todo atualizado com sucesso"),
+          )
+        );
+      } 
+
+      if(widget.todoViewmodel.updateTodo.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.red,
+            content: Text("Ocorreu erro ao atualizar o todo")
+          )
+        );
+      }
+    }
+  }
+
   @override
   void dispose() {
     widget.todoViewmodel.removeTodo.removeListener(_removeCallBack);
+    widget.todoViewmodel.updateTodo.removeListener(_updateCallBack);
     super.dispose();
   }
 
@@ -95,7 +135,10 @@ class _TodoScreen extends State<TodoScreen> {
               todos: widget.todoViewmodel.todos,
               onDeleteTodo: (todo) {
                 widget.todoViewmodel.removeTodo.execute(todo);
-              }
+              },
+              onUpdateTodo: (todo) {
+                widget.todoViewmodel.updateTodo.execute(todo);
+              },
             );
           }
         )

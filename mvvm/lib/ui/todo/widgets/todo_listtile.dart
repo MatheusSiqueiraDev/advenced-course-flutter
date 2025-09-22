@@ -6,12 +6,14 @@ import 'package:mvvm/domain/models/todo.dart';
 
 class TodoListtile extends StatelessWidget {
   final OnDeleteTodo onDeleteTodo;
+  final OnUpdateTodo onUpdateTodo;
   final Todo todo;
 
   const TodoListtile({
     super.key, 
     required this.todo, 
-    required this.onDeleteTodo
+    required this.onDeleteTodo,
+    required this.onUpdateTodo,
   });
 
   @override
@@ -20,7 +22,12 @@ class TodoListtile extends StatelessWidget {
       onTap: () => context.push(Routes.todoDetails(todo.id)),
       child: Card(
         child: ListTile(
-          leading: Text(todo.id.toString()),
+          leading: Checkbox(
+            value: todo.done, 
+            onChanged: (value) {
+              onUpdateTodo(todo.copyWith(done: value));
+            } 
+          ),
           title: Text(todo.name),
           trailing: IconButton(
             onPressed: () {
@@ -31,6 +38,7 @@ class TodoListtile extends StatelessWidget {
               color: Colors.red,
             )
           ),
+          subtitle: Text(todo.description),
         ),
       ),
     );

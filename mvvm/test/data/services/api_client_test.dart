@@ -19,14 +19,22 @@ void main() {
     });
 
     test("Should return Result ok when postTodo()", () async {
-      final CreateTodoApiModel createTodo = CreateTodoApiModel(name: "Funcionou mesmo");
+      final CreateTodoApiModel createTodo = CreateTodoApiModel(
+        name: "Funcionou mesmo",
+        description: "Teste",
+        done: false
+      );
       final Result result = await apiClient.postTodo(createTodo);
 
       expect(result.asOk.value, isA<Todo>());
     });
 
     test("Should return Result ok when deleteTodo()", () async {
-      final CreateTodoApiModel createTodo = CreateTodoApiModel(name: "Vasco");
+      final CreateTodoApiModel createTodo = CreateTodoApiModel(
+        name: "Vasco",
+        description: "Teste",
+        done: false
+      );
 
       final Result resultTodo = await apiClient.postTodo(createTodo);
 
@@ -35,20 +43,30 @@ void main() {
       expect(result.asOk.value, isA<void>());
     });
     test("Should return Result ok when updateTodo()", () async {
-      final CreateTodoApiModel createTodo = CreateTodoApiModel(name: "Vasco nova era");
+      final CreateTodoApiModel createTodo = CreateTodoApiModel(
+        name: "Vasco nova era",
+        description: "Criar",
+        done: false
+      );
 
       final Result resultTodo = await apiClient.postTodo(createTodo);
 
       final Result result = await apiClient.updateTodo(UpdateTodoApiModel(
         id: resultTodo.asOk.value.id, 
-        name: "Vasco 2"
+        name: "Vasco 2",
+        description: "Teste",
+        done: false
       ));
 
       expect(result.asOk.value, isA<Todo>());
     });
 
     test("Should return Result ok when getById()", () async {
-      final CreateTodoApiModel createTodo = CreateTodoApiModel(name: "Vasco nova era");
+      final CreateTodoApiModel createTodo = CreateTodoApiModel(
+        name: "Vasco nova era",
+        description: "Teste",
+        done: false
+      );
 
       final Result resultTodo = await apiClient.postTodo(createTodo);
 

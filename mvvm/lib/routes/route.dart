@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:mvvm/data/repositories/todos/todos_repository.dart';
-import 'package:mvvm/data/repositories/todos/todos_repository_dev.dart';
 import 'package:mvvm/data/repositories/todos/todos_repository_remote.dart';
 import 'package:mvvm/data/services/api/api_client.dart';
+import 'package:mvvm/domain/use_case/todo_update_use_case.dart';
 import 'package:mvvm/routes/routes.dart';
 import 'package:mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 import 'package:mvvm/ui/todo/widgets/todo_screen.dart';
@@ -16,6 +16,10 @@ GoRouter routerConfig() {
     )
   );
 
+  TodoUpdateUseCase todoUpdateUseCase = TodoUpdateUseCase(
+    todosRepository: todosRepository
+  );
+
   return GoRouter(
     initialLocation: Routes.todo,
     routes: <RouteBase>[
@@ -24,6 +28,7 @@ GoRouter routerConfig() {
         builder: (context, state) {
           return TodoScreen(
             todoViewmodel: TodoViewmodel(
+              todoUpdateUseCase: todoUpdateUseCase,
               todosRespository: todosRepository
             ),
           );
@@ -35,6 +40,7 @@ GoRouter routerConfig() {
               final todoId = state.pathParameters['id']!;
 
               final TodoDetailsViewmodel todoDetailsViewmodel = TodoDetailsViewmodel(
+                todoUpdateUseCase: todoUpdateUseCase,
                 todosRespository: todosRepository
               );
 

@@ -7,11 +7,13 @@ import 'package:mvvm/ui/todo/widgets/todo_listtile.dart';
 class TodosList extends StatelessWidget {
   final List<Todo> todos;
   final OnDeleteTodo onDeleteTodo;
+  final OnUpdateTodo onUpdateTodo;
 
   const TodosList({
     super.key, 
     required this.todos, 
-    required this.onDeleteTodo
+    required this.onDeleteTodo,
+    required this.onUpdateTodo
   });
 
   @override
@@ -28,6 +30,7 @@ class TodosList extends StatelessWidget {
         return TodoListtile(
           todo: todos[index],
           onDeleteTodo: onDeleteTodo,
+          onUpdateTodo: onUpdateTodo,
         );
       } 
     );

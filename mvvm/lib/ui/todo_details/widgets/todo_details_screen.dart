@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm/domain/models/todo.dart';
 import 'package:mvvm/ui/todo_details/viewmodels/todo_details_viewmodel.dart';
+import 'package:mvvm/ui/todo_details/widgets/todo_edit.dart';
 import 'package:mvvm/ui/todo_details/widgets/todo_name.dart';
 
 class TodoDetailsScreen extends StatefulWidget {
@@ -44,11 +45,43 @@ class _TodoDetailsScreen extends State<TodoDetailsScreen> {
           builder: (BuildContext context, Widget? child) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TodoName(todo: widget.todoDetailsViewmodel.todo),
+              child: Column(
+                children: [
+                  TodoName(todo: widget.todoDetailsViewmodel.todo),
+                  Text(widget.todoDetailsViewmodel.todo.description)
+                ],
+              ),
             );
           },
         ),
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context, 
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: TodoEdit(
+                  todoDetailsViewmodel: widget.todoDetailsViewmodel,
+                  todo: widget.todoDetailsViewmodel.todo,
+                )
+              );
+            }
+          );
+        },
+        child: ListenableBuilder(
+          listenable: widget.todoDetailsViewmodel.load, 
+          builder: (BuildContext context, Widget? child) {
+            if(widget.todoDetailsViewmodel.load.running ||
+              widget.todoDetailsViewmodel.load.error
+            ) {
+              return SizedBox();
+            }
+
+            return Icon(Icons.edit);
+          }
+        ),
+      ),
     );
   }
 }

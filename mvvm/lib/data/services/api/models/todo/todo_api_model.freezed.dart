@@ -38,7 +38,7 @@ TodoApiModel _$TodoApiModelFromJson(
 /// @nodoc
 mixin _$TodoApiModel {
 
- String get name;
+ String get name; String get description; bool get done;
 /// Create a copy of TodoApiModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -51,16 +51,16 @@ $TodoApiModelCopyWith<TodoApiModel> get copyWith => _$TodoApiModelCopyWithImpl<T
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TodoApiModel&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TodoApiModel&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.done, done) || other.done == done));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode => Object.hash(runtimeType,name,description,done);
 
 @override
 String toString() {
-  return 'TodoApiModel(name: $name)';
+  return 'TodoApiModel(name: $name, description: $description, done: $done)';
 }
 
 
@@ -71,7 +71,7 @@ abstract mixin class $TodoApiModelCopyWith<$Res>  {
   factory $TodoApiModelCopyWith(TodoApiModel value, $Res Function(TodoApiModel) _then) = _$TodoApiModelCopyWithImpl;
 @useResult
 $Res call({
- String name
+ String name, String description, bool done
 });
 
 
@@ -88,10 +88,12 @@ class _$TodoApiModelCopyWithImpl<$Res>
 
 /// Create a copy of TodoApiModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? description = null,Object? done = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,done: null == done ? _self.done : done // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -179,11 +181,11 @@ return update(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String name)?  create,TResult Function( String id,  String name)?  update,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String name,  String description,  bool done)?  create,TResult Function( String id,  String name,  String description,  bool done)?  update,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case CreateTodoApiModel() when create != null:
-return create(_that.name);case UpdateTodoApiModel() when update != null:
-return update(_that.id,_that.name);case _:
+return create(_that.name,_that.description,_that.done);case UpdateTodoApiModel() when update != null:
+return update(_that.id,_that.name,_that.description,_that.done);case _:
   return orElse();
 
 }
@@ -201,11 +203,11 @@ return update(_that.id,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String name)  create,required TResult Function( String id,  String name)  update,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String name,  String description,  bool done)  create,required TResult Function( String id,  String name,  String description,  bool done)  update,}) {final _that = this;
 switch (_that) {
 case CreateTodoApiModel():
-return create(_that.name);case UpdateTodoApiModel():
-return update(_that.id,_that.name);case _:
+return create(_that.name,_that.description,_that.done);case UpdateTodoApiModel():
+return update(_that.id,_that.name,_that.description,_that.done);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -222,11 +224,11 @@ return update(_that.id,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String name)?  create,TResult? Function( String id,  String name)?  update,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String name,  String description,  bool done)?  create,TResult? Function( String id,  String name,  String description,  bool done)?  update,}) {final _that = this;
 switch (_that) {
 case CreateTodoApiModel() when create != null:
-return create(_that.name);case UpdateTodoApiModel() when update != null:
-return update(_that.id,_that.name);case _:
+return create(_that.name,_that.description,_that.done);case UpdateTodoApiModel() when update != null:
+return update(_that.id,_that.name,_that.description,_that.done);case _:
   return null;
 
 }
@@ -238,10 +240,12 @@ return update(_that.id,_that.name);case _:
 @JsonSerializable()
 
 class CreateTodoApiModel implements TodoApiModel {
-  const CreateTodoApiModel({required this.name, final  String? $type}): $type = $type ?? 'create';
+  const CreateTodoApiModel({required this.name, required this.description, required this.done, final  String? $type}): $type = $type ?? 'create';
   factory CreateTodoApiModel.fromJson(Map<String, dynamic> json) => _$CreateTodoApiModelFromJson(json);
 
 @override final  String name;
+@override final  String description;
+@override final  bool done;
 
 @JsonKey(name: 'runtimeType')
 final String $type;
@@ -260,16 +264,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateTodoApiModel&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateTodoApiModel&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.done, done) || other.done == done));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name);
+int get hashCode => Object.hash(runtimeType,name,description,done);
 
 @override
 String toString() {
-  return 'TodoApiModel.create(name: $name)';
+  return 'TodoApiModel.create(name: $name, description: $description, done: $done)';
 }
 
 
@@ -280,7 +284,7 @@ abstract mixin class $CreateTodoApiModelCopyWith<$Res> implements $TodoApiModelC
   factory $CreateTodoApiModelCopyWith(CreateTodoApiModel value, $Res Function(CreateTodoApiModel) _then) = _$CreateTodoApiModelCopyWithImpl;
 @override @useResult
 $Res call({
- String name
+ String name, String description, bool done
 });
 
 
@@ -297,10 +301,12 @@ class _$CreateTodoApiModelCopyWithImpl<$Res>
 
 /// Create a copy of TodoApiModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? description = null,Object? done = null,}) {
   return _then(CreateTodoApiModel(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,done: null == done ? _self.done : done // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -311,11 +317,13 @@ as String,
 @JsonSerializable()
 
 class UpdateTodoApiModel implements TodoApiModel {
-  const UpdateTodoApiModel({required this.id, required this.name, final  String? $type}): $type = $type ?? 'update';
+  const UpdateTodoApiModel({required this.id, required this.name, required this.description, required this.done, final  String? $type}): $type = $type ?? 'update';
   factory UpdateTodoApiModel.fromJson(Map<String, dynamic> json) => _$UpdateTodoApiModelFromJson(json);
 
  final  String id;
 @override final  String name;
+@override final  String description;
+@override final  bool done;
 
 @JsonKey(name: 'runtimeType')
 final String $type;
@@ -334,16 +342,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateTodoApiModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateTodoApiModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.done, done) || other.done == done));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name);
+int get hashCode => Object.hash(runtimeType,id,name,description,done);
 
 @override
 String toString() {
-  return 'TodoApiModel.update(id: $id, name: $name)';
+  return 'TodoApiModel.update(id: $id, name: $name, description: $description, done: $done)';
 }
 
 
@@ -354,7 +362,7 @@ abstract mixin class $UpdateTodoApiModelCopyWith<$Res> implements $TodoApiModelC
   factory $UpdateTodoApiModelCopyWith(UpdateTodoApiModel value, $Res Function(UpdateTodoApiModel) _then) = _$UpdateTodoApiModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name
+ String id, String name, String description, bool done
 });
 
 
@@ -371,11 +379,13 @@ class _$UpdateTodoApiModelCopyWithImpl<$Res>
 
 /// Create a copy of TodoApiModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? description = null,Object? done = null,}) {
   return _then(UpdateTodoApiModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,done: null == done ? _self.done : done // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
