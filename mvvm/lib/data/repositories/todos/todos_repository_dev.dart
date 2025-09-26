@@ -56,11 +56,17 @@ class TodosRepositoryDev extends ChangeNotifier implements TodosRepository {
 
   @override
   Future<Result<Todo>> update(Todo todo) async {
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      await Future.delayed(const Duration(seconds: 2));
 
-    final int index = _todos.indexWhere((t) => t.id == todo.id);
-    _todos[index] = todo;
+      final int index = _todos.indexWhere((t) => t.id == todo.id);
+      _todos[index] = todo;
 
-    return Result.ok(_todos[index]);
+      return Result.ok(_todos[index]);
+    } on Exception catch(error) {
+      return Result.error(error);
+    } finally {
+      notifyListeners();
+    }
   }
 }

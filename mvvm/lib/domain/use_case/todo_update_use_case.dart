@@ -6,7 +6,7 @@ class TodoUpdateUseCase {
   final TodosRepository _todosRepository;
 
   const TodoUpdateUseCase({
-    required todosRepository
+    required TodosRepository todosRepository
   }): _todosRepository = todosRepository;
   
   Future<Result<Todo>> updateTodo(Todo todo) async {

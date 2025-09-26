@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(
-    providers: providersLocal,
+    providers: providersRemote,
     child: const MyApp(),
   ));
 }

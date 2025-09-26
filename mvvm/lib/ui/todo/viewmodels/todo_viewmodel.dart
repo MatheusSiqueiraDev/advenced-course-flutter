@@ -7,8 +7,8 @@ import 'package:mvvm/domain/models/todo.dart';
 
 class TodoViewmodel extends ChangeNotifier {
   TodoViewmodel({
-    required todosRespository,
-    required todoUpdateUseCase
+    required TodosRepository todosRespository,
+    required TodoUpdateUseCase todoUpdateUseCase
   }): _todosRespository = todosRespository, _todoUpdateUseCase = todoUpdateUseCase  {
     load = Command0(_load)..execute();
     addTodo = Command1(_addTodo);
